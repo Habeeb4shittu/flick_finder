@@ -58,6 +58,9 @@ export default function Slides() {
         getPopularMovies();
         getUpcomingMovies();
         getTopRatedMovies();
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

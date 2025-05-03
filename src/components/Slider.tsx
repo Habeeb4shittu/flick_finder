@@ -4,6 +4,7 @@ import rightIcon from "@/components/icons/right-circle-svgrepo-com.svg";
 import Image from "next/image";
 type SliderType = {
   head: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   movies: any;
 }
 export default function Slider({ head, movies }: SliderType) {
@@ -39,22 +40,24 @@ export default function Slider({ head, movies }: SliderType) {
           id="scroll-container"
           className="flex gap-4 overflow-x-auto hide-scrollbar py-3"
         >
-          {movies.map((movie: any) => (
-            <div
-              key={movie.id}
-              className="w-60 shrink-0 p-2 bg-[#1a1a1a] rounded-md transition shadow-md hover:transform hover:scale-105 hover:bg-[#2a2a2a] cursor-pointer shadow-[#52525270]"
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-60 object-cover rounded-md"
-              />
-              <h3 className="text-base font-semibold text-white mt-2 truncate">
-                {movie.title}
-              </h3>
-              <p className="text-xs text-gray-400">{movie.release_date}</p>
-            </div>
-          ))}
+          {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            movies.map((movie: any) => (
+              <div
+                key={movie.id}
+                className="w-60 shrink-0 p-2 bg-[#1a1a1a] rounded-md transition shadow-md hover:transform hover:scale-105 hover:bg-[#2a2a2a] cursor-pointer shadow-[#52525270]"
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-full h-60 object-cover rounded-md"
+                />
+                <h3 className="text-base font-semibold text-white mt-2 truncate">
+                  {movie.title}
+                </h3>
+                <p className="text-xs text-gray-400">{movie.release_date}</p>
+              </div>
+            ))}
         </div>
 
         <div

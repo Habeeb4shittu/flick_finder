@@ -3,6 +3,8 @@ import searchIcon from "@/components/icons/search-alt-2-svgrepo-com.svg"
 import Image from "next/image"
 export default function Header() {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value);
+
     }
     return (
         <header className="flex gap-12 items-center justify-between w-full px-8 py-2">
