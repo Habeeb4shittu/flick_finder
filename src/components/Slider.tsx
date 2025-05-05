@@ -52,7 +52,7 @@ export default function Slider({ head, movies, fullPageLink, fullPageLinkText }:
           className="absolute -left-12 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white px-2"
           onClick={() =>
             document
-              .getElementById("scroll-container")
+              .getElementById(`scroll-container${fullPageLink}`)
               ?.scrollBy({ left: -300, behavior: "smooth" })
           }
         >
@@ -66,7 +66,7 @@ export default function Slider({ head, movies, fullPageLink, fullPageLinkText }:
         </div>
 
         <div
-          id="scroll-container"
+          id={`scroll-container${fullPageLink}`}
           className="flex gap-0 overflow-x-auto hide-scrollbar items-center justify-start pt-1"
         >
           {
@@ -83,7 +83,7 @@ export default function Slider({ head, movies, fullPageLink, fullPageLinkText }:
           className="absolute -right-12 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white p-2"
           onClick={() =>
             document
-              .getElementById("scroll-container")
+              .getElementById(`scroll-container${fullPageLink}`)
               ?.scrollBy({ left: 300, behavior: "smooth" })
           }
         >
