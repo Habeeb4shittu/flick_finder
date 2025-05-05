@@ -1,7 +1,10 @@
-"use client";
 import Header from "@/components/Header";
 import "./globals.css";
 
+export const metadata = {
+  title: "Flick Finder",
+  description: "Discover your next favorite movie with Flick Finder",
+};
 
 export default function RootLayout({
   children,
