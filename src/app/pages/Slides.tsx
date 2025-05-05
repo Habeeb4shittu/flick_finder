@@ -6,6 +6,11 @@ export default function Slides() {
     const [popularMovies, setPopularMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
     const [topRated, setTopRated] = useState([]);
+    const [isFetchingNowPlaying, setIsFetchingNowPlaying] = useState(true);
+    const [isFetchingPopular, setIsFetchingPopular] = useState(true);
+    const [isFetchingUpcoming, setIsFetchingUpcoming] = useState(true);
+    const [isFetchingTopRated, setIsFetchingTopRated] = useState(true);
+
     const options = {
         method: "GET",
         headers: {
@@ -15,44 +20,57 @@ export default function Slides() {
         },
     };
     const getNowPlayingMovies = async () => {
-        await fetch(
-            "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-            options
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res.results);
-                setNowPlaying(res.results);
-            })
-            .catch((err) => console.error(err));
+        setIsFetchingNowPlaying(true);
+        try {
+            const res = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", options);
+            const data = await res.json();
+            setNowPlaying(data.results);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsFetchingNowPlaying(false);
+        }
     };
+
     const getPopularMovies = async () => {
-        await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.results)
-                setPopularMovies(res.results)
-            })
-            .catch(err => console.error(err));
-    }
+        setIsFetchingPopular(true);
+        try {
+            const res = await fetch("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", options);
+            const data = await res.json();
+            setPopularMovies(data.results);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsFetchingPopular(false);
+        }
+    };
+
     const getUpcomingMovies = async () => {
-        await fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.results)
-                setUpcomingMovies(res.results)
-            })
-            .catch(err => console.error(err));
-    }
+        setIsFetchingUpcoming(true);
+        try {
+            const res = await fetch("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1", options);
+            const data = await res.json();
+            setUpcomingMovies(data.results);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsFetchingUpcoming(false);
+        }
+    };
+
     const getTopRatedMovies = async () => {
-        await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.results)
-                setTopRated(res.results)
-            })
-            .catch(err => console.error(err));
-    }
+        setIsFetchingTopRated(true);
+        try {
+            const res = await fetch("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", options);
+            const data = await res.json();
+            setTopRated(data.results);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsFetchingTopRated(false);
+        }
+    };
+
     useEffect(() => {
         getNowPlayingMovies();
         getPopularMovies();
@@ -65,10 +83,11 @@ export default function Slides() {
 
     return (
         <section className="flex flex-col gap-8 px-12 md:px-28 py-4">
-            <Slider head="Now Playing" movies={nowPlaying} fullPageLink="now-playing" />
-            <Slider head="Upcoming Movies" movies={upcomingMovies} fullPageLink="upcoming" />
-            <Slider head="Top Rated" movies={topRated} fullPageLink="top-rated" />
-            <Slider head="Popular Now" movies={popularMovies} fullPageLink="popular-now" />
+            <Slider head="Now Playing" movies={nowPlaying} fullPageLink="now-playing" isFetching={isFetchingNowPlaying} />
+            <Slider head="Upcoming Movies" movies={upcomingMovies} fullPageLink="upcoming" isFetching={isFetchingUpcoming} />
+            <Slider head="Top Rated" movies={topRated} fullPageLink="top-rated" isFetching={isFetchingTopRated} />
+            <Slider head="Popular Now" movies={popularMovies} fullPageLink="popular-now" isFetching={isFetchingPopular} />
         </section>
-    )
+    );
+
 }

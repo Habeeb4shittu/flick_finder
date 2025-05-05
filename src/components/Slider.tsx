@@ -11,8 +11,9 @@ type SliderType = {
   movies: any;
   fullPageLink?: string;
   fullPageLinkText?: string;
+  isFetching?: boolean;
 }
-export default function Slider({ head, movies, fullPageLink, fullPageLinkText }: SliderType) {
+export default function Slider({ head, movies, fullPageLink, fullPageLinkText, isFetching }: SliderType) {
   const navigate = useRouter();
 
   return (
@@ -70,13 +71,15 @@ export default function Slider({ head, movies, fullPageLink, fullPageLinkText }:
           className="flex gap-0 overflow-x-auto hide-scrollbar items-center justify-start pt-1"
         >
           {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            movies.map((movie: any) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-              />
-            ))}
+            isFetching
+              ? Array.from({ length: 8 }).map((_, idx) => (
+                <MovieCard key={`skeleton-${idx}`} loading={true} movie={{ id: idx, title: '', poster_path: '', release_date: '' }} />
+              ))
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              : movies.map((movie: any) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))
+          }
         </div>
 
         <div
