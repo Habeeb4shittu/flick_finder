@@ -16,7 +16,7 @@ export default function MovieCard({ movie }: { movie: movie }) {
                     className="w-full h-60 object-cover rounded-md"
                 />
             </div>
-            <h3 className="text-sm font-semibold text-white group-hover:text-amber-500 transition duration-300 mt-2 wrap-normal mb-1">
+            <h3 className="text-sm font-semibold text-white group-hover:text-amber-500 transition max-w-44 duration-300 mt-2 wrap-normal mb-1">
                 {movie.title}
             </h3>
             <p className="text-xs text-gray-400 font-light">
