@@ -1,26 +1,55 @@
 
+"use client";
 import leftIcon from "@/components/icons/left-circle-svgrepo-com.svg";
 import rightIcon from "@/components/icons/right-circle-svgrepo-com.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import MovieCard from "./MovieCard";
 type SliderType = {
   head: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   movies: any;
+  fullPageLink?: string;
+  fullPageLinkText?: string;
 }
-export default function Slider({ head, movies }: SliderType) {
+export default function Slider({ head, movies, fullPageLink, fullPageLinkText }: SliderType) {
+  const navigate = useRouter();
 
   return (
-    <div className="flex flex-col mt-5 gap-4 px-10 w-full h-full">
-      <h4 className="text-[2rem] font-bold text-left my-2 text-shadow-cyan-900 font-sans cursor-pointer">
-        {head}
-      </h4>
+    <div className="flex flex-col w-full h-full">
+      <div className="flex items-center justify-between w-full">
+        <h4 className="text-[1.3rem] font-bold text-left my-1 text-shadow-cyan-900 font-sans cursor-pointer">
+          {head}
+        </h4>
+        {fullPageLink && (
+          <button className="text-sm text-amber-500 flex items-center gap-1.5 cursor-pointer font-semibold  transition duration-300" onClick={() => {
+            navigate.push(fullPageLink);
+          }}>
+            {fullPageLinkText ?? "See All"}
+            <span className="">
+              <svg
+                fill="#f0a21a"
+                width="28px"
+                height="28px"
+                viewBox="-9.5 0 32 32"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#f0a21a"
+                strokeWidth="0.00038">
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <title>angle-double-right</title>
+                  <path d="M5.6 23.28c-0.2 0-0.44-0.080-0.6-0.24-0.32-0.32-0.32-0.84 0-1.2l5.84-5.84-5.84-5.84c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l6.44 6.44c0.16 0.16 0.24 0.36 0.24 0.6s-0.080 0.44-0.24 0.6l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24zM0.84 23.28c-0.2 0-0.44-0.080-0.6-0.24-0.32-0.32-0.32-0.84 0-1.2l5.84-5.84-5.84-5.84c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l6.44 6.44c0.16 0.16 0.24 0.36 0.24 0.6s-0.080 0.44-0.24 0.6l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z"></path>
+                </g>
+              </svg>
+            </span>
+          </button>
+        )}
+      </div>
       <div className="relative select-none">
         <div
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white p-2"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,0.4))",
-          }}
+          className="absolute -left-12 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white px-2"
           onClick={() =>
             document
               .getElementById("scroll-container")
@@ -38,34 +67,20 @@ export default function Slider({ head, movies }: SliderType) {
 
         <div
           id="scroll-container"
-          className="flex gap-4 overflow-x-auto hide-scrollbar py-3"
+          className="flex gap-0 overflow-x-auto hide-scrollbar items-center justify-start pt-1"
         >
           {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             movies.map((movie: any) => (
-              <div
+              <MovieCard
                 key={movie.id}
-                className="w-60 shrink-0 p-2 bg-[#1a1a1a] rounded-md transition shadow-md hover:transform hover:scale-105 hover:bg-[#2a2a2a] cursor-pointer shadow-[#52525270]"
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="w-full h-60 object-cover rounded-md"
-                />
-                <h3 className="text-base font-semibold text-white mt-2 truncate">
-                  {movie.title}
-                </h3>
-                <p className="text-xs text-gray-400">{movie.release_date}</p>
-              </div>
+                movie={movie}
+              />
             ))}
         </div>
 
         <div
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white p-2"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,0.4))",
-          }}
+          className="absolute -right-12 top-1/2 transform -translate-y-1/2 h-full cursor-pointer flex items-center justify-center text-white p-2"
           onClick={() =>
             document
               .getElementById("scroll-container")

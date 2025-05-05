@@ -64,11 +64,11 @@ export default function Slides() {
     }, []);
 
     return (
-        <>
-            <Slider head="Now Playing" movies={nowPlaying} />
-            <Slider head="Upcoming Movies" movies={upcomingMovies} />
-            <Slider head="Top Rated" movies={topRated} />
-            <Slider head="Popular Now" movies={popularMovies} />
-        </>
+        <section className="flex flex-col gap-8 px-12 md:px-28 py-4">
+            <Slider head="Now Playing" movies={nowPlaying} fullPageLink="now-playing" />
+            <Slider head="Upcoming Movies" movies={upcomingMovies} fullPageLink="upcoming" />
+            <Slider head="Top Rated" movies={topRated} fullPageLink="top-rated" />
+            <Slider head="Popular Now" movies={popularMovies} fullPageLink="popular-now" />
+        </section>
     )
 }
