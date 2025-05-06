@@ -41,3 +41,11 @@ export const getTopRatedMoviesApi = async (page = 1) => {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 };
+export const searchMovies = async (query: string, page = 1) => {
+  return fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};

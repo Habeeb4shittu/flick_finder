@@ -1,0 +1,79 @@
+"use client";
+import MovieCard from "@/components/MovieCard";
+import { searchMovies } from "@/network/apis";
+import { useEffect, useRef, useState, use } from "react";
+
+type Movie = {
+    id: number;
+    title: string;
+    poster_path: string;
+    release_date: string;
+};
+
+export default function SearchPage({ params }: { params: Promise<{ search: string }> }) {
+    const { search } = use(params); // ✅ unwrap params
+
+    const [searchedMovies, setSearchedMovies] = useState<Movie[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [isFetching, setIsFetching] = useState(false);
+    const fetchedPages = useRef<Set<number>>(new Set());
+
+    const fetchMovies = async (page: number) => {
+        if (isFetching || page > totalPages || fetchedPages.current.has(page)) return;
+
+        setIsFetching(true);
+        fetchedPages.current.add(page);
+
+        try {
+            const data = await searchMovies(search, page);
+            setSearchedMovies((prev) => [...prev, ...data.results]);
+            setTotalPages(data.total_pages);
+            setCurrentPage(page);
+        } catch (error) {
+            console.error("Failed to fetch searched movies:", error);
+        } finally {
+            setIsFetching(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchMovies(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const nearBottom =
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 400;
+
+            if (nearBottom && !isFetching && currentPage < totalPages) {
+                fetchMovies(currentPage + 1);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, totalPages, isFetching]);
+
+    return (
+        <div className="flex flex-col w-full h-full px-4 md:px-28">
+            <div className="flex items-center justify-between w-full py-1">
+                <h4 className="text-[1.3rem] font-bold text-left my-2 text-shadow-cyan-900 font-sans cursor-pointer">
+                    Search results for <span className="text-amber-500 italic">{search}</span>:
+                </h4>
+            </div>
+            <div className="flex gap-4 flex-wrap justify-center items-center py-3">
+                {searchedMovies.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} search={search} />
+                ))}
+            </div>
+
+            {isFetching && (
+                <p className="text-center text-sm text-gray-300 my-4">Searching...</p>
+            )}
+        </div>
+    );
+}
