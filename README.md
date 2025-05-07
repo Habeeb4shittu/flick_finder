@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Flick Finder
 
-## Getting Started
+Flick Finder is a sleek, responsive movie discovery app powered by the [TMDB API](https://www.themoviedb.org/documentation/api). Users can browse popular movies, search for specific titles, and explore detailed information about each film—including cast, ratings, genres, and more.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 🔍 **Search** for movies using keywords
+- 🏆 **View top-rated and trending films**
+- 🎥 **Detailed movie pages** with:
+  - Poster and backdrop
+  - Overview, release date, and rating
+  - Duration and genre breakdown
+  - Cast profiles with names and characters
+- 📱 **Responsive UI** optimized for all screen sizes
+- 💀 **Skeleton loaders** for a smooth loading experience
+- 📸 **Fallback images** for missing poster paths
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Data Source**: TMDB API
+- **State Management**: (Mention if you're using any state management library like Zustand, Redux Toolkit, or Context API)
+- **HTTP Client**: (Mention if you're using a specific library for API calls, like `axios` or the built-in `fetch`)
+- **Image Optimization**: (Mention if you're using Next.js's `Image` component or any other image optimization techniques)
+- **Linting and Formatting**: (Mention tools like ESLint, Prettier, or Stylelint if you're using them)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Getting Started
 
-## Learn More
+1.  **Prerequisites**:
 
-To learn more about Next.js, take a look at the following resources:
+    - Node.js (version \>= X.X.X)
+    - npm or yarn
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  **Installation**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    git clone <repository-url>
+    cd flick-finder
+    npm install  # or yarn install
+    ```
 
-## Deploy on Vercel
+3.  **Environment Variables**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    - Create a `.env.local` file in the root of your project.
+    - Add your TMDB API key:
+      ```
+      NEXT_PUBLIC_TMDB_API_KEY=YOUR_TMDB_API_KEY
+      ```
+      _(Make sure to get your API key from the [TMDB website](https://www.google.com/search?q=https://www.themoviedb.org/settings/api).)_
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  **Running the Development Server**:
+
+    ```bash
+    npm run dev  # or yarn dev
+    ```
+
+    - Open your browser and navigate to `http://localhost:3000`.
