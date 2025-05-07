@@ -71,6 +71,7 @@ export default function Header() {
                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                 searchResults.map((movie: any) => (
                                     <div key={movie.id} className="mb-0.5 py-3.5 border-b flex gap-2 justify-start items-center border-[#ffffff33] px-3 cursor-pointer" onClick={() => {
+                                        setShowSearch(false);
                                         navigate.push(`/movie/${movie.id}`)
                                     }}>
                                         {movie.poster_path ? (

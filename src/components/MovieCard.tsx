@@ -1,5 +1,6 @@
 import { fadeInUp } from "@/lib/animations";
 import AnimateOnScroll from "./AnimateOnScroll";
+import { useRouter } from "next/navigation";
 
 type Movie = {
     id: number;
@@ -9,6 +10,7 @@ type Movie = {
 };
 
 export default function MovieCard({ movie, loading = false, search = "" }: { movie: Movie; loading?: boolean; search?: string }) {
+    const navigate = useRouter();
     if (loading) {
         return (
             <div className="p-2">
@@ -21,7 +23,10 @@ export default function MovieCard({ movie, loading = false, search = "" }: { mov
 
     return (
         <AnimateOnScroll animation={fadeInUp} delay={0.2}>
-            <div key={movie.id} className="p-2 group cursor-pointer">
+            <div key={movie.id} className="p-2 group cursor-pointer" onClick={() => {
+                navigate.push(`/movie/${movie.id}`);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }}>
                 <div className="w-44 shrink-0 group-hover:transform group-hover:-translate-y-2 transition duration-300">
                     <img
                         src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`

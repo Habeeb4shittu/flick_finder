@@ -49,3 +49,21 @@ export const searchMovies = async (query: string, page = 1) => {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getMovie = async (movieId: any) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getMovieCast = async (movieId: any) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
