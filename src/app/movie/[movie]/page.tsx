@@ -121,7 +121,7 @@ export default function MoviePage({ params }: { params: Promise<{ movie: string 
                                             className="w-28 lg:w-35 h-28 lg:h-35 object-cover rounded-md"
                                         />
                                         <div>
-                                            <p className="text-base text-gray-100 font-semibold truncate max-h-28 lg:max-w-35">{actor?.character}</p>
+                                            <p className="text-base text-gray-100 font-semibold truncate max-w-28 lg:max-w-35">{actor?.character}</p>
                                             <p className="text-sm max-w-28 lg:max-w-35 font-medium text-gray-400 truncate">{actor?.name}</p>
                                         </div>
                                     </div>
