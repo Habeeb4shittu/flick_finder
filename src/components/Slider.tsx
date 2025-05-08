@@ -68,7 +68,7 @@ export default function Slider({ head, movies, fullPageLink, fullPageLinkText, i
 
         <div
           id={`scroll-container${fullPageLink}`}
-          className="flex gap-0 overflow-x-auto hide-scrollbar items-center justify-start pt-1"
+          className="flex gap-0 overflow-x-auto overflow-y-hidden hide-scrollbar items-center justify-start pt-1"
         >
           {
             isFetching
