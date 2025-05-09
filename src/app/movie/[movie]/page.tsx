@@ -126,7 +126,7 @@ export default function MoviePage({ params }: { params: Promise<{ movie: string 
                         <p className="text-base tracking-wider font-medium text-white mt-3.5">{thisMovie?.overview}</p>
                         <div className="mt-3.5">
                             <h3 className="text-2xl font-semibold text-white">Featured Cast</h3>
-                            <div className="flex items-center justify-center lg:justify-start gap-4 max-h-[85vh] lg:max-h-[415px] py-1 overflow-y-auto flex-wrap mt-4 thin-scrollbar">
+                            <div className="flex items-center justify-center lg:justify-start gap-4 max-h-[85vh] lg:max-h-[425px] py-1 overflow-y-auto flex-wrap mt-4 thin-scrollbar">
                                 {reformedCast.map((actor) => (
                                     <div key={actor.id} className="flex flex-col items-start justify-center gap-2">
                                         <img

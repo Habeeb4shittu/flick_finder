@@ -38,7 +38,7 @@ export default function Header() {
     }
 
     return (
-        <header className="flex gap-1 md:gap-12 items-center justify-between w-full px-12 flex-wrap md:flex-nowrap md:px-24 mt-2 py-2">
+        <header className="flex gap-1 md:gap-12 items-center justify-between w-full sticky top-0 z-50 bg-[#141414] px-12 flex-wrap md:flex-nowrap md:px-24 mt-2 py-2">
             <AnimateOnScroll animation={slideInLeft} delay={0.2}>
                 <h1 className="text-3xl font-bold text-left my-2 text-shadow-cyan-900 font-sans cursor-pointer" onClick={() => {
                     navigate.push("/")
