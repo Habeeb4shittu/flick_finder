@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, use } from "react";
 import MovieCard from "@/components/MovieCard";
 import { getAllGenres, getMovieGenres } from "@/network/apis";
 
@@ -16,17 +16,11 @@ type Genre = {
     name: string;
 };
 
-type PageProps = {
-    params: {
-        genre: string; // it's a string in URL params
-    };
-};
-
-export default function GenrePage({ params }: PageProps) {
-    const genreId = Number(params.genre);
+export default function GenrePage({ params }: { params: Promise<{ genre: number }> }) {
+    const { genre } = use(params);
 
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [genreName, setGenreName] = useState<string>("Loading...");
+    const [genreName, setGenreName] = useState<string>("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [isFetching, setIsFetching] = useState(false);
@@ -37,8 +31,9 @@ export default function GenrePage({ params }: PageProps) {
         async function fetchGenreName() {
             try {
                 const res = await getAllGenres();
+
                 const found: Genre | undefined = res.genres.find(
-                    (g: Genre) => g.id === genreId
+                    (g: Genre) => g.id === Number(genre)
                 );
                 if (found) setGenreName(found.name);
                 else setGenreName("Unknown Genre");
@@ -49,7 +44,7 @@ export default function GenrePage({ params }: PageProps) {
         }
 
         fetchGenreName();
-    }, [genreId]);
+    }, [genre]);
 
     const fetchMovies = async (page: number) => {
         if (isFetching || page > totalPages || fetchedPages.current.has(page)) return;
@@ -58,7 +53,7 @@ export default function GenrePage({ params }: PageProps) {
         fetchedPages.current.add(page);
 
         try {
-            const data = await getMovieGenres(genreId, page); // Make sure this accepts page
+            const data = await getMovieGenres(genre, page); // Make sure this accepts page
             setMovies((prev) => [...prev, ...data.results]);
             setTotalPages(data.total_pages);
             setCurrentPage(page);
@@ -73,7 +68,7 @@ export default function GenrePage({ params }: PageProps) {
     useEffect(() => {
         fetchMovies(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [genreId]);
+    }, [genre]);
 
     // Infinite scroll
     useEffect(() => {
