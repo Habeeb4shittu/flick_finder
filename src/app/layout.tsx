@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import "./globals.css";
+import ProgressProvider from "@/components/ProgressProvider";
 
 export const metadata = {
   title: "Flick Finder",
@@ -16,8 +17,10 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <Header />
-        {children}
+        <ProgressProvider>
+          <Header />
+          {children}
+        </ProgressProvider>
       </body>
     </html>
   );
