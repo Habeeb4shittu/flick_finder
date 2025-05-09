@@ -16,7 +16,13 @@ type Genre = {
     name: string;
 };
 
-export default function GenrePage({ params }: { params: { genre: string } }) {
+type PageProps = {
+    params: {
+        genre: string; // it's a string in URL params
+    };
+};
+
+export default function GenrePage({ params }: PageProps) {
     const genreId = Number(params.genre);
 
     const [movies, setMovies] = useState<Movie[]>([]);
