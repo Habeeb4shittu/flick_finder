@@ -81,3 +81,20 @@ export const getAllGenres = async () => {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 };
+
+export const getActorDetails = async (actorId: number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${actorId}?language=en-US`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
+export const getActorCasts = async (actorId: number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${actorId}/movie_credits?language=en-US`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};

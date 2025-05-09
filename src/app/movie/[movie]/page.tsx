@@ -136,7 +136,7 @@ export default function MoviePage({ params }: { params: Promise<{ movie: string 
                                         />
                                         <div>
                                             <p className="text-base text-gray-100 font-semibold truncate max-w-28 lg:max-w-35">{actor?.character}</p>
-                                            <p className="text-sm max-w-28 lg:max-w-35 font-medium text-gray-400 truncate">{actor?.name}</p>
+                                            <Link href={`/actor/${actor?.id}`} className="text-sm max-w-28 lg:max-w-35 font-medium cursor-pointer hover:text-amber-500 hover:underline text-gray-400 truncate">{actor?.name}</Link>
                                         </div>
                                     </div>
                                 ))}
