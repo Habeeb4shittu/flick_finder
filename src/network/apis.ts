@@ -67,3 +67,17 @@ export const getMovieCast = async (movieId: any) => {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 };
+export const getMovieGenres = async (genreId: number, page = 1) => {
+  return fetch(
+    ` https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US&page=${page}`,
+    options
+  )
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};
+
+export const getAllGenres = async () => {
+  return fetch(`https://api.themoviedb.org/3/genre/movie/list`, options)
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+};

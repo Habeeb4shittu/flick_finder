@@ -1,6 +1,7 @@
 "use client";
 import MovieDetailSkeleton from "@/components/MovieDetailSkeleton";
 import { getMovie, getMovieCast } from "@/network/apis";
+import Link from "next/link";
 import { useEffect, useState, use } from "react";
 
 
@@ -107,7 +108,20 @@ export default function MoviePage({ params }: { params: Promise<{ movie: string 
                             <span className="w-[1px] h-4 bg-[#ffffff29]"></span>
                             <p className="text-md font-semibold text-gray-400 whitespace-nowrap">{(thisMovie?.runtime && thisMovie?.runtime / 60)?.toFixed() + "hr"} {" "} {(thisMovie?.runtime && thisMovie?.runtime % 60) + "min"}</p>
                             <span className="w-[1px] h-4 bg-[#ffffff29]"></span>
-                            <p className="text-md font-semibold text-gray-400 whitespace-nowrap">{thisMovie?.genres.map((genre) => genre.name).join(", ")}</p>
+                            <p className="text-md font-semibold text-gray-400 whitespace-nowrap">
+                                {thisMovie?.genres.map((genre, index) => (
+                                    <Link
+                                        key={genre.id}
+                                        href={`/genre/${genre.id}`}
+                                    >
+                                        <span
+                                            className="hover:underline hover:text-amber-500 cursor-pointer">
+                                            {genre.name}
+                                        </span>
+                                        {index < thisMovie.genres.length - 1 && ", "}
+                                    </Link>
+                                ))}
+                            </p>
                         </div>
                         <p className="text-base tracking-wider font-medium text-white mt-3.5">{thisMovie?.overview}</p>
                         <div className="mt-3.5">
